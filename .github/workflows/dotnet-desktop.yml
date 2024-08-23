@@ -1,4 +1,4 @@
-name: Build and Push Docker Image to ACR
+name: Build, Scan, and Push Docker Image to ACR
 
 on:
   push:
@@ -8,9 +8,12 @@ on:
 env:
   # Local environment variables used later in the workflow
   DOCKER_PATH: './DockerfileProducts.acr'
+  IMAGE_NAME: 'myapp'
+  IMAGE_TAG: ${{ github.sha }}
+  ACR_IMAGE: ${{ secrets.REGISTRY_URL }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
 jobs:
-  build-and-push:
+  build-scan-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,8 +32,19 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -f ${{ env.DOCKER_PATH }} -t ${{ secrets.REGISTRY_URL }}/myapp:${{ github.sha }} .
+          docker build -f ${{ env.DOCKER_PATH }} -t ${{ env.ACR_IMAGE }} .
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.42.0/trivy_0.42.0_Linux-64bit.deb
+          sudo dpkg -i trivy_0.42.0_Linux-64bit.deb
+
+      - name: Scan Docker image with Trivy
+        run: |
+          trivy image --exit-code 1 --no-progress ${{ env.ACR_IMAGE }}
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.REGISTRY_URL }}/myapp:${{ github.sha }}
+          docker push ${{ env.ACR_IMAGE }}
