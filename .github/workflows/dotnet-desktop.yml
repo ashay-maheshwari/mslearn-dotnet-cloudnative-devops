@@ -7,7 +7,7 @@ on:
 
 env:
   # Local environment variables used later in the workflow
-  DOCKER_PATH: './DockerfileProducts'
+  DOCKER_PATH: './DockerfileProducts.acr'
 
 jobs:
   build-and-push:
