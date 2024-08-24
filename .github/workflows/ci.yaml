@@ -33,6 +33,9 @@ jobs:
 
     - name: Build project
       run: dotnet build --no-restore
+      
+    - name: Run Unit tests
+      run: dotnet test --no-build --verbosity normal
 
     - name: Publish using DefaultContainer profile
       run: dotnet publish /p:PublishProfile=DefaultContainer
