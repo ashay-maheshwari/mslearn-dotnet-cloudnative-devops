@@ -83,12 +83,6 @@ jobs:
         repository: ashay-maheshwari/mslearn-argocd-demo
         token: ${{ secrets.ARGO_REPO_TOKEN }}  # Token to access the manifest repo
       
-    - name: About to update manifest files. Please approve or deny 
-      uses: trstringer/manual-approval@v1
-      with:
-        secret: ${{ github.TOKEN }}
-        approvers: ashay-maheshwari
-
     - name: Update manifest file
       run: |
         sed -i 's|image: productionclusterregistry.azurecr.io/products:.*|image: productionclusterregistry.azurecr.io/products:${{ github.sha }}|' deployment-products.yaml
