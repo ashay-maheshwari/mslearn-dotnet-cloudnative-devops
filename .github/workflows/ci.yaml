@@ -102,7 +102,7 @@ jobs:
           - Version: 1.0.0
        buttons: |
           - type: OpenUri
-              name: View in GitHub
-              targets:
-                - os: default
-                  uri: https://github.com/ashay-maheshwari/mslearn-dotnet-cloudnative-devops/
+            name: View in GitHub
+            targets:
+              - os: default
+                uri: https://github.com/ashay-maheshwari/mslearn-dotnet-cloudnative-devops/
