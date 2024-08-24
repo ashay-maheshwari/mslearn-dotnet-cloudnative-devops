@@ -77,8 +77,8 @@ jobs:
 
     - name: Update manifest file
       run: |
-        sed -i 's|image: productionclusterregistry.azurecr.io/productservice:.*|image: productionclusterregistry.azurecr.io/productservice:${{ github.sha }}|' deployment-products.yaml
-        sed -i 's|image: productionclusterregistry.azurecr.io/storeimage:.*|image: productionclusterregistry.azurecr.io/storeimage:${{ github.sha }}|' deployment-store.yaml
+        sed -i 's|image: productionclusterregistry.azurecr.io/products:.*|image: productionclusterregistry.azurecr.io/productservice:${{ github.sha }}|' deployment-products.yaml
+        sed -i 's|image: productionclusterregistry.azurecr.io/store:.*|image: productionclusterregistry.azurecr.io/storeimage:${{ github.sha }}|' deployment-store.yaml
         git config user.name "ashay-maheshwari"
         git config user.email "aaryaashay1848@gmail.com"
         git add deployment-store.yaml
