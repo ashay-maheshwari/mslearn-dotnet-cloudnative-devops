@@ -28,30 +28,11 @@ jobs:
       with:
         dotnet-version: '8.0.401'  # Specify the .NET version you need
       
-    - name: Install SonarScanner for .NET
-      run: dotnet tool install --global dotnet-sonarscanner
-      
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build project
       run: dotnet build --no-restore
-
-    - name: Run SonarScanner in local mode
-      run: |
-            dotnet sonarscanner begin \
-             /k:"my_project_key" \
-             /d:sonar.host.url="http://localhost" \
-             /d:sonar.login="non_existing_token" \
-             /d:sonar.scanner.skipReport=true
-            
-            dotnet build
-            
-            dotnet sonarscanner end \
-             /d:sonar.login="non_existing_token"
-
-    - name: Show SonarScanner log
-      run: cat .sonarqube/out/.sonar/report-task.txt
       
     - name: Run Unit tests
       run: dotnet test --no-build --verbosity normal
