@@ -56,7 +56,7 @@ jobs:
     - name: Upload SonarQube report
       uses: sonarcloud/sonarcloud-github-action@v2.0.0
       env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ARGO_REPO_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: 'my-dotnet-app'
